@@ -31,3 +31,14 @@ C:\Users\Kevin\Desktop\School\Jaar 2\OOP\Opdracht Amazon\AmazonSimulator VS\obj\
 C:\Users\Kevin\Desktop\School\Jaar 2\OOP\Opdracht Amazon\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.AssemblyInfo.cs
 C:\Users\Kevin\Desktop\School\Jaar 2\OOP\Opdracht Amazon\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.dll
 C:\Users\Kevin\Desktop\School\Jaar 2\OOP\Opdracht Amazon\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.pdb
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.csprojAssemblyReference.cache
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.csproj.CoreCompileInputs.cache
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.AssemblyInfoInputs.cache
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.AssemblyInfo.cs
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.dll
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.pdb
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\bin\Debug\netcoreapp2.0\AmazonSimulator VS.deps.json
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\bin\Debug\netcoreapp2.0\AmazonSimulator VS.runtimeconfig.json
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\bin\Debug\netcoreapp2.0\AmazonSimulator VS.runtimeconfig.dev.json
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\bin\Debug\netcoreapp2.0\AmazonSimulator VS.dll
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\bin\Debug\netcoreapp2.0\AmazonSimulator VS.pdb

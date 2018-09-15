@@ -11478,7 +11478,7 @@
       ]
     },
     "System.Security.Cryptography.Xml/4.4.2": {
-      "sha512": "q9Dren/YP5jhRCkDvLfuaPpMTQzP97ANvzq/OoGgwK8YdLRSTABS9oW5/23OKoM2DRCuBrh4qaecD2YNhPtuzQ==",
+      "sha512": "1m+fKVrApgKYMRuE0MF0vGjqy4XqAp1rCtyAzMXhJajMDDytMh/rHk9hp4M7KKk3QQZoWJUvyUY7xcw74w+JiQ==",
       "type": "package",
       "path": "system.security.cryptography.xml/4.4.2",
       "files": [
@@ -12669,11 +12669,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kevin\\Desktop\\School\\Jaar 2\\OOP\\Opdracht Amazon\\AmazonSimulator VS\\AmazonSimulator VS.csproj",
+      "projectUniqueName": "C:\\Users\\Kevin\\Desktop\\School\\Periode 1\\Object Georiënteerd Programmeren\\Opdracht Amazon\\AmazonSimulator VS\\AmazonSimulator VS.csproj",
       "projectName": "AmazonSimulator VS",
-      "projectPath": "C:\\Users\\Kevin\\Desktop\\School\\Jaar 2\\OOP\\Opdracht Amazon\\AmazonSimulator VS\\AmazonSimulator VS.csproj",
+      "projectPath": "C:\\Users\\Kevin\\Desktop\\School\\Periode 1\\Object Georiënteerd Programmeren\\Opdracht Amazon\\AmazonSimulator VS\\AmazonSimulator VS.csproj",
       "packagesPath": "C:\\Users\\Kevin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kevin\\Desktop\\School\\Jaar 2\\OOP\\Opdracht Amazon\\AmazonSimulator VS\\obj\\",
+      "outputPath": "C:\\Users\\Kevin\\Desktop\\School\\Periode 1\\Object Georiënteerd Programmeren\\Opdracht Amazon\\AmazonSimulator VS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
