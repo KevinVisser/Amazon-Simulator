@@ -19,17 +19,35 @@
         window.onload = function () {
             var camera, scene, renderer;
             var cameraControls;
+            var truck;
 
             var worldObjects = {};
 
             /**
-            * @param {string} modelPath = "models/Truck"
-            * @param {string} modelName = "Truck.obj"
-            * @param {string} texturePath = "models/Truck"
-            * @param {string} textureName = "Truck.mtl"
+            * @param {string} modelPath
+            * @param {string} modelName
+            * @param {string} texturePath
+            * @param {string} textureName
             * @param {function(THREE.Mesh): void} onload
             * @return {void}
             */
+            
+            function loadOBJModel(modelPath, modelName, texturePath, textureName, onload){
+                new THREE.MTLLoader()
+                    .setPath(texturePath)
+                    .load(textureName, function(materials){
+
+                        materials.preload();
+
+                        new THREE.OBJLoader()
+                            .setPath(modelPath)
+                            .setMaterials(materials)
+                            .load(modelName, function(object){
+                                onload(object);
+                            }, function () {} , function (e){console.log("Error loading model"); console.log(e); });
+                    });
+            }
+
 
             function init() {
                 camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
@@ -56,46 +74,33 @@
                 plane.position.z = 15;
                 scene.add(plane);
 
-                var mtlLoader = new THREE.MTLLoader();
-				mtlLoader.load("models/Truck/Truck.mtl", function(materials){
+                loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => {
+                    mesh.scale.set(0.01, 0.01, 0.01);
+                    mesh.position.set(33, 0.23, 15);
+                    truck = mesh;
+                    scene.add(mesh);
+                })
 
-					materials.preload();
-					var objLoader = new THREE.OBJLoader();
-					objLoader.setMaterials(materials);
+                loadOBJModel("models/Warehouse/", "warehouse.obj", "models/Warehouse/", "warehouse.mtl", (mesh) => {
+                    mesh.scale.set(1.5, 1, 1);
+                    mesh.position.set(30, 1.85 , 15);
+                    mesh.rotation.y = Math.PI / 2;
+                    scene.add(mesh);
+                });
 
-					objLoader.load("models/Truck/Truck.obj", function(mesh2){
+                var skyboxGeometry = new THREE.BoxGeometry(1000, 1000, 1000);
+                var skyboxMaterials = [
+                    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("textures/skybox/skybox.png"), side: THREE.DoubleSide}),
+                    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("textures/skybox/skybox.png"), side: THREE.DoubleSide}),
+                    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("textures/skybox/skybox.png"), side: THREE.DoubleSide}),
+                    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("textures/skybox/skybox.png"), side: THREE.DoubleSide}),
+                    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("textures/skybox/skybox.png"), side: THREE.DoubleSide}),
+                    new THREE.MeshBasicMaterial({map: new THREE.TextureLoader().load("textures/skybox/skybox.png"), side: THREE.DoubleSide})
+                ];
+                var skyboxMaterial = new THREE.MeshFaceMaterial(skyboxMaterials);
+                var skybox = new THREE.Mesh(skyboxGeometry, skyboxMaterial);
 
-                        mesh2.scale.set(0.01, 0.01, 0.01);
-                        mesh2.position.set(33, 0.23, 15);
-						scene.add(mesh2);
-						
-					}, function(xhr){
-						console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-					}, function(error){
-						console.log("an error happened");
-					});
-				});
-
-                var mtlLoader = new THREE.MTLLoader();
-				mtlLoader.load("models/Warehouse/warehouse.mtl", function(materials){
-
-					materials.preload();
-                    var objLoader = new THREE.OBJLoader();
-					objLoader.setMaterials(materials);
-
-					objLoader.load("models/Warehouse/warehouse.obj", function(mesh2){
-
-                        mesh2.scale.set(1, 1, 1);
-                        mesh2.position.set(30, 1.85 , 15);
-                        mesh2.rotation.y = Math.PI / 2;
-						scene.add(mesh2);
-						
-					}, function(xhr){
-						console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-					}, function(error){
-						console.log("an error happened");
-					});
-				});
+                scene.add(skybox);
 
                 var light = new THREE.AmbientLight(0x404040);
                 light.intensity = 4;
