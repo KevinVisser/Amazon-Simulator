@@ -6,6 +6,7 @@ using Controllers;
 namespace Models {
     public class World : IObservable<Command>, IUpdatable
     {
+        Point point = new Point();
         private List<Object> worldObjects = new List<Object>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
         
