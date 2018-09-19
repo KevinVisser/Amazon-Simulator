@@ -74,6 +74,18 @@
                 plane.position.z = 15;
                 scene.add(plane);
 
+                
+                for (var i = 0; i < 8; i++){
+                    var rackGeometry = new THREE.BoxGeometry(1.2, 2.75, 1.2);
+                    var rackMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
+                    var rack = new THREE.Mesh(rackGeometry, rackMaterial);
+                    console.log("2");
+                    rack.position.y = 2.75 / 2 + 0.5;
+                    rack.position.x = 5;
+                    rack.position.z = 5 + i + 0.5 * i;
+                    scene.add(rack);
+                }
+
                 loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => {
                     mesh.scale.set(0.01, 0.01, 0.01);
                     mesh.position.set(33, 0.23, 15);
