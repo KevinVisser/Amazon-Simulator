@@ -33,7 +33,6 @@ namespace Models
             this._y = y;
             this._z = z;
 
-            needsUpdate = true;
         }
 
         public virtual void Rotate(double rotationX, double rotationY, double rotationZ)

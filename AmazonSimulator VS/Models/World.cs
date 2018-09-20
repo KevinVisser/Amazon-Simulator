@@ -6,7 +6,6 @@ using Controllers;
 namespace Models {
     public class World : IObservable<Command>, IUpdatable
     {
-        Point point = new Point();
         private List<Object> worldObjects = new List<Object>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
         
@@ -14,7 +13,7 @@ namespace Models {
             Robot r = CreateRobot(0,0,0);
             //LoadingBay bay = CreateLoadingBay(10, 5, 10);
             Truck truck = CreateTruck(20, 10, 10);
-            r.Move(4.6, 0, 13);
+            r.Move(5, 0, 17.5);
         }
 
         private Truck CreateTruck(double x, double y, double z)
