@@ -20,7 +20,10 @@
             var camera, scene, renderer;
             var cameraControls;
             var x = 5;
-            var truck;
+            var object, rack;
+            var group;
+            var xDest, yDest, zDest;
+            var xOrig, yOrig, zOrig;
 
             var worldObjects = {};
 
@@ -73,6 +76,7 @@
                 plane.rotation.x = Math.PI / 2.0;
                 plane.position.x = 15;
                 plane.position.z = 15;
+                plane2 = plane;
                 scene.add(plane);
 
                 
@@ -80,7 +84,7 @@
                     for (var j = 0; j < 4; j++){
                         var rackGeometry = new THREE.BoxGeometry(1.2, 2.75, 1.2);
                         var rackMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
-                        var rack = new THREE.Mesh(rackGeometry, rackMaterial);
+                        rack = new THREE.Mesh(rackGeometry, rackMaterial);
                         rack.position.y = 2.75 / 2 + 0.5;
                         rack.position.x = x;
                         rack.position.z = 13 + j + 0.5 * j;
@@ -129,6 +133,22 @@
             function animate() {
                 requestAnimationFrame(animate);
                 cameraControls.update();
+                if (Math.floor(group.position.x) != xDest){
+                    if (group.position.x > xDest){
+                        group.position.x -= 0.01;
+                    }
+                    else if (group.position.x < xDest){
+                        group.position.x += 0.01;
+                    }
+                }
+                if (Math.floor(group.position.z) != zDest && Math.floor(group.position.x) == xDest){
+                    if (group.position.z > zDest){
+                        group.position.z -= 0.01;
+                    }
+                    else if (group.position.z < zDest){
+                        group.position.z += 0.01;
+                    }
+                }
                 renderer.render(scene, camera);
             }
 
@@ -136,7 +156,6 @@
             exampleSocket.onmessage = function (event)
             {
                 var command = parseCommand(event.data);
-
                 if (command.command == "update")
                 {
                     if (Object.keys(worldObjects).indexOf(command.parameters.guid) < 0)
@@ -155,7 +174,7 @@
                             var robot = new THREE.Mesh(geometry, cubeMaterials);
                             robot.position.y = 0.15;
 
-                            var group = new THREE.Group();
+                            group = new THREE.Group();
                             group.add(robot);
 
                             scene.add(group);
@@ -163,13 +182,18 @@
                         }
                     }
 
-                    console.log(group);
 
-                    var object = worldObjects[command.parameters.guid];
+                    object = worldObjects[command.parameters.guid];
 
-                    object.position.x = command.parameters.x;
-                    object.position.y = command.parameters.y;
-                    object.position.z = command.parameters.z;
+                    xDest = command.parameters.x;
+                    yDest = command.parameters.y;
+                    zDest = command.parameters.z;
+
+                    group.add(rack);
+
+                    //object.translateX(command.parameters.x);
+                    //object.position.y = command.parameters.y;
+                    //object.position.z = command.parameters.z;
 
                     object.rotation.x = command.parameters.rotationX;
                     object.rotation.y = command.parameters.rotationY;

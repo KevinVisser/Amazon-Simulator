@@ -12,7 +12,7 @@ namespace Models {
         public World() {
             Robot r = CreateRobot(0,0,0);
             //LoadingBay bay = CreateLoadingBay(10, 5, 10);
-            Truck truck = CreateTruck(20, 10, 10);
+            //Truck truck = CreateTruck(20, 10, 10);
             r.Move(5, 0, 17.5);
         }
 
