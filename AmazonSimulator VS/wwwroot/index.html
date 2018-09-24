@@ -20,10 +20,12 @@
             var camera, scene, renderer;
             var cameraControls;
             var x = 5;
-            var object, rack;
+            var object;
+            var rack;
             var group;
             var xDest, yDest, zDest;
             var xOrig, yOrig, zOrig;
+            var sent = false;
 
             var worldObjects = {};
 
@@ -133,22 +135,28 @@
             function animate() {
                 requestAnimationFrame(animate);
                 cameraControls.update();
-                if (Math.floor(group.position.x) != xDest){
-                    if (group.position.x > xDest){
-                        group.position.x -= 0.01;
+                if (Math.round(object.position.x * 10) / 10 != xDest){
+                    if (object.position.x > xDest){
+                        object.position.x -= 0.05;
                     }
-                    else if (group.position.x < xDest){
-                        group.position.x += 0.01;
-                    }
-                }
-                if (Math.floor(group.position.z) != zDest && Math.floor(group.position.x) == xDest){
-                    if (group.position.z > zDest){
-                        group.position.z -= 0.01;
-                    }
-                    else if (group.position.z < zDest){
-                        group.position.z += 0.01;
+                    else if (object.position.x < xDest){
+                        object.position.x += 0.05;
                     }
                 }
+                if (Math.round(object.position.z * 10) / 10 != zDest && Math.round(object.position.x * 10) / 10 == xDest){
+                    if (object.position.z > zDest){
+                        object.position.z -= 0.05;
+                    }
+                    else if (object.position.z < zDest){
+                        object.position.z += 0.05;
+                    }
+                }
+
+                if(Math.round(object.position.x * 10) / 10 == xDest && Math.round(object.position.z * 10) / 10 == zDest && !sent){
+                    exampleSocket.send("Hello, world!");
+                    sent = true;
+                }
+
                 renderer.render(scene, camera);
             }
 
@@ -189,7 +197,11 @@
                     yDest = command.parameters.y;
                     zDest = command.parameters.z;
 
-                    group.add(rack);
+                    sent = false;
+
+                   
+
+                    //group.add(rack);
 
                     //object.translateX(command.parameters.x);
                     //object.position.y = command.parameters.y;
@@ -200,6 +212,7 @@
                     object.rotation.z = command.parameters.rotationZ;
                 }
             }
+            
             
 
             init();
