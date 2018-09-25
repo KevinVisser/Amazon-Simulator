@@ -8,6 +8,7 @@ namespace PathFinding
     public class Dijkstra
     {
         public List<Node> listOfNodes = new List<Node>();
+        public List<Node> ListOfRacks = new List<Node>();
         
 
         public void FillList()
@@ -30,6 +31,11 @@ namespace PathFinding
             listOfNodes.Add(new Node("C2", 15, 0, 11.5));
             listOfNodes.Add(new Node("C3", 15, 0, 13));
             listOfNodes.Add(new Node("C4", 15, 0, 14.5));
+
+            ListOfRacks.Add(new Node("C1", 15, 0, 10));
+            ListOfRacks.Add(new Node("C2", 15, 0, 11.5));
+            ListOfRacks.Add(new Node("C3", 15, 0, 13));
+            ListOfRacks.Add(new Node("C4", 15, 0, 14.5));
 
             listOfNodes.Add(new Node("D1", 10, 0, 10));
             listOfNodes.Add(new Node("D2", 10, 0, 11.5));
@@ -58,6 +64,42 @@ namespace PathFinding
             listOfNodes.Add(new Node("E31", 7.5, 0, 13));
             listOfNodes.Add(new Node("E41", 7.5, 0, 14.5));
 
+            int randomRack = RandomListOfRacks(ListOfRacks);
+
+            //nu hebben we de random rack die we willen ophalen--> nu de pathfinding daarnaartoe.
+
+            Path(randomRack, listOfNodes, ListOfRacks);
+        }
+
+        public int RandomListOfRacks(List<Node> p)
+        {
+            Random rnd = new Random();
+            int returnElement = rnd.Next(0, p.Count() - 1);
+            p.RemoveAt(returnElement);
+            return returnElement;
+        }
+
+        public List<Node> Path(int randomRack, List<Node> nodes, List<Node> racks)
+        {
+            List<Node> path = new List<Node>();
+
+            for (int i = 0; i < nodes.Count(); i++)
+            {
+                if(racks[randomRack] == nodes[i])
+                {
+                    GetPath(randomRack, racks);
+                }
+            }
+
+
+
+            return path;
+        }
+
+        public List<Node> GetPath(int randomRack, List<Node> racks)
+        {
+            // hier moet je het pad vinden bij --> racks[randomRack]
+            throw new NotImplementedException();
         }
     }
 }

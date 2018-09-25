@@ -27,6 +27,7 @@
             var xOrig, yOrig, zOrig;
             var sent = false;
             var start = true;
+            var racks = [];
 
             var worldObjects = {};
 
@@ -82,7 +83,7 @@
                 plane2 = plane;
                 scene.add(plane);
 
-                
+                /*
                 for (var i = 0; i < 3; i++){
                     for (var j = 0; j < 4; j++){
                         var rackGeometry = new THREE.BoxGeometry(1.2, 2.75, 1.2);
@@ -95,6 +96,18 @@
                     }
                     x += 5;
                 }
+                */
+
+                for (var i = 0; i < 4; i++){
+                    racks[i] = new THREE.BoxGeometry(1.2, 2, 1.2);
+                    var rackMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
+                    racks[i] = new THREE.Mesh(racks[i], rackMaterial);
+                    racks[i].position.y = 2 / 2 + 0.5;
+                    racks[i].position.x = 15;
+                    racks[i].position.z = 13 + i + 0.5 * i;
+                    scene.add(racks[i]);
+                }
+                
 
                 loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => {
                     mesh.scale.set(0.01, 0.01, 0.01);
@@ -104,8 +117,8 @@
                 })
 
                 loadOBJModel("models/Warehouse/", "warehouse.obj", "models/Warehouse/", "warehouse.mtl", (mesh) => {
-                    mesh.scale.set(1.5, 1, 1);
-                    mesh.position.set(30, 1.85 , 15);
+                    mesh.scale.set(1.5, 1.5, 1);
+                    mesh.position.set(30, 2.8, 15);
                     mesh.rotation.y = Math.PI / 2;
                     scene.add(mesh);
                 });
@@ -154,6 +167,12 @@
                     }
                 }
 
+                if(Math.round(object.position.x * 10) / 10 == 15 && Math.round(object.position.z * 10) / 10 == 13){
+                    racks[0].position.x = 0;
+                    racks[0].position.z = 0;
+                    group.add(racks[0]);
+                }
+
                 if(Math.round(object.position.x * 10) / 10 == xDest && Math.round(object.position.z * 10) / 10 == zDest && !sent){
                     exampleSocket.send("Next");
                     sent = true;
@@ -198,20 +217,18 @@
 
 
                     object = worldObjects[command.parameters.guid];
-
+                    
+                    
                     if(start){
                         object.position.set(28, 0.15, 13.5);
                         start = false;
                     }
-                    console.log(command.parameters.x);
-                    console.log(object.position.x);
-                    
+
                     xDest = command.parameters.x;
                     yDest = command.parameters.y;
                     zDest = command.parameters.z;
 
                     sent = false;
-
                    
 
                     //group.add(rack);
