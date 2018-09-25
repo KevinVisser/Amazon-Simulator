@@ -26,6 +26,7 @@
             var xDest, yDest, zDest;
             var xOrig, yOrig, zOrig;
             var sent = false;
+            var start = true;
 
             var worldObjects = {};
 
@@ -135,6 +136,7 @@
             function animate() {
                 requestAnimationFrame(animate);
                 cameraControls.update();
+                
                 if (Math.round(object.position.x * 10) / 10 != xDest){
                     if (object.position.x > xDest){
                         object.position.x -= 0.05;
@@ -153,7 +155,7 @@
                 }
 
                 if(Math.round(object.position.x * 10) / 10 == xDest && Math.round(object.position.z * 10) / 10 == zDest && !sent){
-                    exampleSocket.send("Hello, world!");
+                    exampleSocket.send("Next");
                     sent = true;
                 }
 
@@ -182,6 +184,9 @@
                             var robot = new THREE.Mesh(geometry, cubeMaterials);
                             robot.position.y = 0.15;
 
+
+                            console.log(robot.position.x);
+
                             group = new THREE.Group();
                             group.add(robot);
 
@@ -191,8 +196,16 @@
                     }
 
 
+
                     object = worldObjects[command.parameters.guid];
 
+                    if(start){
+                        object.position.set(28, 0.15, 13.5);
+                        start = false;
+                    }
+                    console.log(command.parameters.x);
+                    console.log(object.position.x);
+                    
                     xDest = command.parameters.x;
                     yDest = command.parameters.y;
                     zDest = command.parameters.z;

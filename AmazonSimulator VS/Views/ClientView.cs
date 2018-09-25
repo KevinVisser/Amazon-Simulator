@@ -6,10 +6,13 @@ using System.Net.WebSockets;
 using System.Threading.Tasks;
 using System.Text;
 using Controllers;
+using Models;
 
 namespace Views {
     public class ClientView : IObserver<Command> {
         private WebSocket socket;
+        string msg = "";
+        int i = 0;
 
         public ClientView(WebSocket socket)
         {
@@ -22,9 +25,15 @@ namespace Views {
             Console.WriteLine("ClientView connection started");
 
             WebSocketReceiveResult result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+            msg = Encoding.UTF8.GetString(buffer);
             while (!result.CloseStatus.HasValue)
             {
-                Console.WriteLine("Received the following information from client: " + Encoding.UTF8.GetString(buffer));
+                if (msg.Contains("Next") && i < World.zCoord.Count() && i < World.xCoord.Count())
+                {
+                    World.r.Move(World.xCoord[i], 0, World.zCoord[i]);
+                    i++;
+                }
+                //Console.WriteLine("Received the following information from client: " + Encoding.UTF8.GetString(buffer));
 
                 result = await socket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
             }
