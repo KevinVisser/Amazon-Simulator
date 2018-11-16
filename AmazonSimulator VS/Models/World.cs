@@ -2,56 +2,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Controllers;
+using PathFinding;
+using Tasks;
 
 namespace Models {
     public class World : IObservable<Command>, IUpdatable
     {
         private List<Object> worldObjects = new List<Object>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
-        private int j = 0;
-        public static Robot r;
-
-        public static Dictionary<double, double> test = new Dictionary<double, double>();
-        public static List<double> xCoord = new List<double>();
-        public static List<double> zCoord = new List<double>();
 
         public World() {
-            r = CreateRobot(28, 0, 13.5);
+            Pathfinding.FillList();
 
-            //B
-            xCoord.Add(28);
-            zCoord.Add(8);
-
-            //C
-            xCoord.Add(17.5);
-            zCoord.Add(8);
-
-            //C11
-            xCoord.Add(17.5);
-            zCoord.Add(13);
-
-            //C1
-            xCoord.Add(15);
-            zCoord.Add(13);
-
-            //C11
-            xCoord.Add(17.5);
-            zCoord.Add(13);
-
-            //H
-            xCoord.Add(17.5);
-            zCoord.Add(22.5);
-
-            //I
-            xCoord.Add(28);
-            zCoord.Add(22.5);
-
-            //J
-            xCoord.Add(28);
-            zCoord.Add(18);
-
-
+            Robot r = CreateRobot(0, 0, 0);
             r.Move(28, 0, 13.5);
+            
+            Pathfinding.Listnodes("A", "C2", Pathfinding.listOfNodes);
+            Pathfinding.Listnodes("C2", "J", Pathfinding.listOfNodes);
+            Pathfinding.CheckForDupes(Pathfinding.Path);
+
+            r.AddTask(new RobotMove(Pathfinding.Start));
+            r.AddTask(new RobotMove(Pathfinding.Path));
+
         }
 
         private Truck CreateTruck(double x, double y, double z)
@@ -100,11 +72,6 @@ namespace Models {
         {
             for(int i = 0; i < worldObjects.Count; i++) {
                 Object u = worldObjects[i];
-                //if(u is Robot)
-                //{
-                //    robot = (Robot)u;
-                //    robot.Move(test.Keys.ElementAt(1), 0, test.Values.ElementAt(1));
-                //}
 
                 if(u is IUpdatable) {
                     bool needsCommand = ((IUpdatable)u).Update(tick);

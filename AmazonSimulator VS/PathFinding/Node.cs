@@ -7,17 +7,23 @@ namespace PathFinding
 {
     public class Node
     {
-        private string _nodeName = "";
-        private double _x = 0;
-        private double _y = 0;
-        private double _z = 0;
+        public string _nodeName = "";
+        public double _x = 0;
+        public double _y = 0;
+        public double _z = 0;
+        public List<string> Neighbors = new List<string>();
 
-        public Node(string nodeName, double x, double y, double z)
+        public Node(string nodeName, double x, double y, double z, string neighbor1, string neighbor2 = null)
         {
             _nodeName = nodeName;
             _x = x;
             _y = y;
             _z = z;
+            Neighbors.Add(neighbor1);
+            if (neighbor2 != null)
+            {
+                Neighbors.Add(neighbor2);
+            }
         }
     }
 }

@@ -14,8 +14,6 @@
             return JSON.parse(input);
         }
 
-        var exampleSocket;
-
         window.onload = function () {
             var camera, scene, renderer;
             var cameraControls;
@@ -23,10 +21,6 @@
             var object;
             var rack;
             var group;
-            var xDest, yDest, zDest;
-            var xOrig, yOrig, zOrig;
-            var sent = false;
-            var start = true;
             var racks = [];
 
             var worldObjects = {};
@@ -80,23 +74,7 @@
                 plane.rotation.x = Math.PI / 2.0;
                 plane.position.x = 15;
                 plane.position.z = 15;
-                plane2 = plane;
                 scene.add(plane);
-
-                /*
-                for (var i = 0; i < 3; i++){
-                    for (var j = 0; j < 4; j++){
-                        var rackGeometry = new THREE.BoxGeometry(1.2, 2.75, 1.2);
-                        var rackMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
-                        rack = new THREE.Mesh(rackGeometry, rackMaterial);
-                        rack.position.y = 2.75 / 2 + 0.5;
-                        rack.position.x = x;
-                        rack.position.z = 13 + j + 0.5 * j;
-                        scene.add(rack);
-                    }
-                    x += 5;
-                }
-                */
 
                 for (var i = 0; i < 4; i++){
                     racks[i] = new THREE.BoxGeometry(1.2, 2, 1.2);
@@ -149,35 +127,6 @@
             function animate() {
                 requestAnimationFrame(animate);
                 cameraControls.update();
-                
-                if (Math.round(object.position.x * 10) / 10 != xDest){
-                    if (object.position.x > xDest){
-                        object.position.x -= 0.05;
-                    }
-                    else if (object.position.x < xDest){
-                        object.position.x += 0.05;
-                    }
-                }
-                if (Math.round(object.position.z * 10) / 10 != zDest && Math.round(object.position.x * 10) / 10 == xDest){
-                    if (object.position.z > zDest){
-                        object.position.z -= 0.05;
-                    }
-                    else if (object.position.z < zDest){
-                        object.position.z += 0.05;
-                    }
-                }
-
-                if(Math.round(object.position.x * 10) / 10 == 15 && Math.round(object.position.z * 10) / 10 == 13){
-                    racks[0].position.x = 0;
-                    racks[0].position.z = 0;
-                    group.add(racks[0]);
-                }
-
-                if(Math.round(object.position.x * 10) / 10 == xDest && Math.round(object.position.z * 10) / 10 == zDest && !sent){
-                    exampleSocket.send("Next");
-                    sent = true;
-                }
-
                 renderer.render(scene, camera);
             }
 
@@ -203,9 +152,6 @@
                             var robot = new THREE.Mesh(geometry, cubeMaterials);
                             robot.position.y = 0.15;
 
-
-                            console.log(robot.position.x);
-
                             group = new THREE.Group();
                             group.add(robot);
 
@@ -217,25 +163,10 @@
 
 
                     object = worldObjects[command.parameters.guid];
-                    
-                    
-                    if(start){
-                        object.position.set(28, 0.15, 13.5);
-                        start = false;
-                    }
 
-                    xDest = command.parameters.x;
-                    yDest = command.parameters.y;
-                    zDest = command.parameters.z;
-
-                    sent = false;
-                   
-
-                    //group.add(rack);
-
-                    //object.translateX(command.parameters.x);
-                    //object.position.y = command.parameters.y;
-                    //object.position.z = command.parameters.z;
+                    object.position.x = command.parameters.x;
+                    object.position.y = command.parameters.y;
+                    object.position.z = command.parameters.z;
 
                     object.rotation.x = command.parameters.rotationX;
                     object.rotation.y = command.parameters.rotationY;
