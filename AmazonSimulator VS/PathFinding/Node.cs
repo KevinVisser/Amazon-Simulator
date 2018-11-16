@@ -21,11 +21,34 @@ namespace PathFinding
             _x = x;
             _y = y;
             _z = z;
+
             Neighbors.Add(neighbor1);
             if (neighbor2 != null)
             {
                 Neighbors.Add(neighbor2);
             }
+        }
+
+        public void SetRack(PalletRack p)
+        {
+            this.rack = p;
+        }
+
+        public bool HasRack()
+        {
+            if(this.rack != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public PalletRack GetRack()
+        {
+            return rack;
         }
     }
 }

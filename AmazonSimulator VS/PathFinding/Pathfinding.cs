@@ -10,13 +10,16 @@ namespace PathFinding
     public class Pathfinding
     {
         public static List<Node> listOfNodes = new List<Node>();
-        public static List<Node> Path = new List<Node>();
+        public static List<Node> PathRobot1 = new List<Node>();
+        public static List<Node> PathRobot2 = new List<Node>();
+        public static List<Node> PathRobot3 = new List<Node>();
         public static List<Node> Start = new List<Node>();
 
         public static void FillList()
         {
-            listOfNodes.Add(new Node("A", 28, 0, 13.5, "B"));
             Start.Add(new Node("A", 28, 0, 13.5, "B"));
+
+            listOfNodes.Add(new Node("A", 28, 0, 13.5, "B"));
             listOfNodes.Add(new Node("B", 28, 0, 8, "C"));
             listOfNodes.Add(new Node("C", 17.5, 0, 8, "C1", "D"));
             listOfNodes.Add(new Node("D", 12.5, 0, 8, "D1", "E"));
@@ -37,14 +40,14 @@ namespace PathFinding
             listOfNodes.Add(new Node("E3", 5, 0, 13, "E4"));
             listOfNodes.Add(new Node("E4", 5, 0, 14.5, "F"));
 
-            listOfNodes.Add(new Node("F", 7.5, 0, 22.5, "E4", "G"));
-            listOfNodes.Add(new Node("G", 12.5, 0, 22.5, "D4", "H"));
-            listOfNodes.Add(new Node("H", 17.5, 0, 22.5, "C4", "I"));
+            listOfNodes.Add(new Node("F", 5, 0, 22.5, "E4", "G"));
+            listOfNodes.Add(new Node("G", 10, 0, 22.5, "D4", "H"));
+            listOfNodes.Add(new Node("H", 15, 0, 22.5, "C4", "I"));
             listOfNodes.Add(new Node("I", 28, 0, 22.5, "J"));
             listOfNodes.Add(new Node("J", 28, 0, 18, "A"));
         }
 
-        public static void Listnodes(string start, string end, List<Node> nodes)
+        public static List<Node> Listnodes(string start, string end, List<Node> nodes, List<Node> path)
         {
             Node CurrentNode;
             string currentNode;
@@ -69,8 +72,8 @@ namespace PathFinding
                 //als de currentNode een neighbor heeft met de endnode word de current node toegevoegd aan de list en called hij recursief de functie weer aan met die neighbor als eindpunt.
                 if (nodes[i].Neighbors.Contains(end))
                 {
-                    Path.Add(CurrentNode);
-                    Listnodes(start, nodes[i]._nodeName, listOfNodes);
+                    path.Add(CurrentNode);
+                    Listnodes(start, nodes[i]._nodeName, listOfNodes, path);
                     break;
                 }
             }
@@ -79,11 +82,12 @@ namespace PathFinding
             {
                 if (node._nodeName == end)
                 {
-                    Path.Add(node);
+                    path.Add(node);
                 }
             }
             //Sorteer de lijst op alfabetische volgorde en haal alle duplicates eruit
-            Path = Path.OrderBy(x => x._nodeName).Distinct().ToList();
+            path = path.OrderBy(x => x._nodeName).Distinct().ToList();
+            return path;
         }
 
         public static void CheckForDupes(List<Node> list)

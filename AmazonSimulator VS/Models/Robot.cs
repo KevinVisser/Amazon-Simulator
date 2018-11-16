@@ -45,36 +45,93 @@ namespace Models
                     }
 
                 }
-                //else
-                //{
-                //    tasks.First().StartTask(this);
-                //}
             }
 
-            if(this.currentPath != null)
+            if(this.currentPath != null && this.currentPath.Count != 0)
             {
                 this._x = Math.Round(this._x, 1);
                 this._z = Math.Round(this._z, 1);
                 //bewegen
-                if (this._x < currentPath[0]._x)
+                if (currentPath[0].HasRack() && rack == null)
                 {
-                    this.Move(this.x + 0.1, this.y, this.z);
+                    if(this._x == currentPath[0]._x && this._z == currentPath[0]._z)
+                    {
+                        this.rack = currentPath[0].GetRack();
+                        this.rack.Move(this.x, this.y + 1.4, this.z);
+                    }
+                    else
+                    {
+                        if (this._x < currentPath[0]._x)
+                        {
+                            this.Move(this.x + 0.1, this.y, this.z);
+                        }
+                        else if (this._x > currentPath[0]._x)
+                        {
+                            this.Move(this.x - 0.1, this.y, this.z);
+                        }
+                        else if (this._z < currentPath[0]._z)
+                        {
+                            this.Move(this.x, this.y, this.z + 0.1);
+                        }
+                        else if (this._z > currentPath[0]._z)
+                        {
+                            this.Move(this.x, this.y, this.z - 0.1);
+                        }
+                        else
+                        {
+                            currentPath.RemoveAt(0);
+                        }
+                    }
                 }
-                else if (this._x > currentPath[0]._x)
+                else if(rack != null)
                 {
-                    this.Move(this.x - 0.1, this.y, this.z);
-                }
-                else if (this._z < currentPath[0]._z)
-                {
-                    this.Move(this.x, this.y, this.z + 0.1);
-                }
-                else if (this._z > currentPath[0]._z)
-                {
-                    this.Move(this.x, this.y, this.z - 0.1);
+                    if (this._x < currentPath[0]._x)
+                    {
+                        this.Move(this.x + 0.1, this.y, this.z);
+                        this.rack.Move(this.x + 0.1, this.y + 1.4, this.z);
+                    }
+                    else if (this._x > currentPath[0]._x)
+                    {
+                        this.Move(this.x - 0.1, this.y, this.z);
+                        this.rack.Move(this.x - 0.1, this.y + 1.4, this.z);
+                    }
+                    else if (this._z < currentPath[0]._z)
+                    {
+                        this.Move(this.x, this.y, this.z + 0.1);
+                        this.rack.Move(this.x, this.y + 1.4, this.z + 0.1);
+                    }
+                    else if (this._z > currentPath[0]._z)
+                    {
+                        this.Move(this.x, this.y, this.z - 0.1);
+                        this.rack.Move(this.x, this.y + 1.4, this.z - 0.1);
+                    }
+                    else
+                    {
+                        currentPath.RemoveAt(0);
+                    }
                 }
                 else
                 {
-                    currentPath.RemoveAt(0);
+                    if (this._x < currentPath[0]._x)
+                    {
+                        this.Move(this.x + 0.1, this.y, this.z);
+                    }
+                    else if (this._x > currentPath[0]._x)
+                    {
+                        this.Move(this.x - 0.1, this.y, this.z);
+                    }
+                    else if (this._z < currentPath[0]._z)
+                    {
+                        this.Move(this.x, this.y, this.z + 0.1);
+                    }
+                    else if (this._z > currentPath[0]._z)
+                    {
+                        this.Move(this.x, this.y, this.z - 0.1);
+                    }
+                    else
+                    {
+                        currentPath.RemoveAt(0);
+                    }
                 }
                 //kijken of je robot op de node zit kijk of die locate een rack heeft (hasRack) en zet de rack in de robot. obj
             }
@@ -90,16 +147,6 @@ namespace Models
         public void MoveOverPath(List<Node> path)
         {
             this.currentPath = path;
-
-            //if(path.Count > 1)
-            //{
-            //    this.Move(path[0]._x, path[0]._y, path[0]._z);
-            //    path.RemoveAt(0);
-            //}
-            //else
-            //{
-            //    this.Move(path[0]._x, path[0]._y, path[0]._z);
-            //}
         }
     }
 }

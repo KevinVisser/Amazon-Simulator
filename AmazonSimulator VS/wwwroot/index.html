@@ -21,7 +21,6 @@
             var object;
             var rack;
             var group;
-            var racks = [];
 
             var worldObjects = {};
 
@@ -76,15 +75,15 @@
                 plane.position.z = 15;
                 scene.add(plane);
 
-                for (var i = 0; i < 4; i++){
-                    racks[i] = new THREE.BoxGeometry(1.2, 2, 1.2);
-                    var rackMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
-                    racks[i] = new THREE.Mesh(racks[i], rackMaterial);
-                    racks[i].position.y = 2 / 2 + 0.5;
-                    racks[i].position.x = 15;
-                    racks[i].position.z = 13 + i + 0.5 * i;
-                    scene.add(racks[i]);
-                }
+                // for (var i = 0; i < 4; i++){
+                //     racks[i] = new THREE.BoxGeometry(1.2, 2, 1.2);
+                //     var rackMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
+                //     racks[i] = new THREE.Mesh(racks[i], rackMaterial);
+                //     racks[i].position.y = 2 / 2 + 0.5;
+                //     racks[i].position.x = 15;
+                //     racks[i].position.z = 13 + i + 0.5 * i;
+                //     scene.add(racks[i]);
+                // }
                 
 
                 loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => {
@@ -151,19 +150,32 @@
                             ];
                             var robot = new THREE.Mesh(geometry, cubeMaterials);
                             robot.position.y = 0.15;
-
+                            
                             group = new THREE.Group();
                             group.add(robot);
-
+                            
+                            scene.add(group);
+                            worldObjects[command.parameters.guid] = group;
+                        }
+                        else if(command.parameters.type == "palletRack")
+                        {
+                            console.log(command)
+                            var rackGeo = new THREE.BoxGeometry(1.2, 2, 1.2);
+                            var rackMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
+                            var rack = new THREE.Mesh(rackGeo, rackMaterial);
+                            // rack.position.x = command.parameters.x;
+                            // rack.position.y = command.parameters.y + 1.4;
+                            // rack.position.z = command.parameters.z;
+                            group = new THREE.Group();
+                            group.add(rack);
+                            
                             scene.add(group);
                             worldObjects[command.parameters.guid] = group;
                         }
                     }
 
-
-
-                    object = worldObjects[command.parameters.guid];
-
+                    //console.log(command.parameters)
+                    var object = worldObjects[command.parameters.guid];
                     object.position.x = command.parameters.x;
                     object.position.y = command.parameters.y;
                     object.position.z = command.parameters.z;
