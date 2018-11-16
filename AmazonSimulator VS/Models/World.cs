@@ -18,7 +18,7 @@ namespace Models {
             r.Move(28, 0, 13.5);
             
             Pathfinding.Listnodes("A", "C2", Pathfinding.listOfNodes);
-            Pathfinding.Listnodes("C2", "J", Pathfinding.listOfNodes);
+            //Pathfinding.Listnodes("C2", "J", Pathfinding.listOfNodes);
             Pathfinding.CheckForDupes(Pathfinding.Path);
 
             r.AddTask(new RobotMove(Pathfinding.Start));

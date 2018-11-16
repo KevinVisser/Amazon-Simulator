@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ namespace PathFinding
         public double _x = 0;
         public double _y = 0;
         public double _z = 0;
+        private PalletRack rack = null;
         public List<string> Neighbors = new List<string>();
 
         public Node(string nodeName, double x, double y, double z, string neighbor1, string neighbor2 = null)
