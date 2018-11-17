@@ -2670,6 +2670,15 @@
           }
         }
       },
+      "morelinq/3.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/MoreLinq.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/MoreLinq.dll": {}
+        }
+      },
       "NETStandard.Library/2.0.0": {
         "type": "package",
         "dependencies": {
@@ -7520,6 +7529,21 @@
         "runtimes/win/lib/netstandard1.3/Microsoft.Win32.Registry.dll",
         "useSharedDesignerContext.txt",
         "version.txt"
+      ]
+    },
+    "morelinq/3.0.0": {
+      "sha512": "kw1+zWPgInOdyAZA8AzlYFKZKH19Y/O5jPvI4dervgdQuIl8qOU6yHlxdTWDwlY4E3k/NNu/BAh0PAUXyL3m0A==",
+      "type": "package",
+      "path": "morelinq/3.0.0",
+      "files": [
+        "lib/net451/MoreLinq.dll",
+        "lib/net451/MoreLinq.xml",
+        "lib/netstandard1.0/MoreLinq.dll",
+        "lib/netstandard1.0/MoreLinq.xml",
+        "lib/netstandard2.0/MoreLinq.dll",
+        "lib/netstandard2.0/MoreLinq.xml",
+        "morelinq.3.0.0.nupkg.sha512",
+        "morelinq.nuspec"
       ]
     },
     "NETStandard.Library/2.0.0": {
@@ -12659,7 +12683,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
       "Microsoft.AspNetCore.All >= 2.0.9",
-      "Microsoft.NETCore.App >= 2.0.0"
+      "Microsoft.NETCore.App >= 2.0.0",
+      "morelinq >= 3.0.0"
     ]
   },
   "packageFolders": {
@@ -12669,11 +12694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kevin\\Desktop\\School\\Jaar 2\\OOP\\Amazon Opdracht\\AmazonSimulator VS\\AmazonSimulator VS.csproj",
+      "projectUniqueName": "C:\\Users\\Kevin\\Desktop\\School\\Jaar 2\\Periode 1\\OOP\\Amazon Opdracht\\AmazonSimulator VS\\AmazonSimulator VS.csproj",
       "projectName": "AmazonSimulator VS",
-      "projectPath": "C:\\Users\\Kevin\\Desktop\\School\\Jaar 2\\OOP\\Amazon Opdracht\\AmazonSimulator VS\\AmazonSimulator VS.csproj",
+      "projectPath": "C:\\Users\\Kevin\\Desktop\\School\\Jaar 2\\Periode 1\\OOP\\Amazon Opdracht\\AmazonSimulator VS\\AmazonSimulator VS.csproj",
       "packagesPath": "C:\\Users\\Kevin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kevin\\Desktop\\School\\Jaar 2\\OOP\\Amazon Opdracht\\AmazonSimulator VS\\obj\\",
+      "outputPath": "C:\\Users\\Kevin\\Desktop\\School\\Jaar 2\\Periode 1\\OOP\\Amazon Opdracht\\AmazonSimulator VS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -12711,6 +12736,10 @@
             "target": "Package",
             "version": "[2.0.0, )",
             "autoReferenced": true
+          },
+          "morelinq": {
+            "target": "Package",
+            "version": "[3.0.0, )"
           }
         },
         "imports": [
