@@ -39,25 +39,25 @@ namespace Models {
 
 
             //Pad voor de robot
-            Pathfinding.PathRobot1 = Pathfinding.Listnodes("A", "C4", Pathfinding.listOfNodes, Pathfinding.PathRobot1);
-            Pathfinding.PathRobot1 = Pathfinding.Listnodes("C4", "A", Pathfinding.listOfNodes, Pathfinding.PathRobot1);
+            Pathfinding.Path = Pathfinding.Listnodes("A", "C4", Pathfinding.listOfNodes, Pathfinding.Path);
 
             r1.AddTask(new RobotMove(Pathfinding.Start));
-            r1.AddTask(new RobotMove(Pathfinding.PathRobot1));
+            r1.AddTask(new RobotMove(Pathfinding.Path));
+
+            Pathfinding.Path = new List<Node>();
 
 
-            Pathfinding.PathRobot2 = Pathfinding.Listnodes("A", "D4", Pathfinding.listOfNodes, Pathfinding.PathRobot2);
-            Pathfinding.PathRobot2 = Pathfinding.Listnodes("D4", "A", Pathfinding.listOfNodes, Pathfinding.PathRobot2);
+            Pathfinding.Path = Pathfinding.Listnodes("A", "D4", Pathfinding.listOfNodes, Pathfinding.Path);
 
             r2.AddTask(new RobotMove(Pathfinding.Start));
-            r2.AddTask(new RobotMove(Pathfinding.PathRobot2));
+            r2.AddTask(new RobotMove(Pathfinding.Path));
 
+            Pathfinding.Path = new List<Node>();
 
-            Pathfinding.PathRobot3 = Pathfinding.Listnodes("A", "E4", Pathfinding.listOfNodes, Pathfinding.PathRobot3);
-            Pathfinding.PathRobot3 = Pathfinding.Listnodes("E4", "A", Pathfinding.listOfNodes, Pathfinding.PathRobot3);
+            Pathfinding.Path = Pathfinding.Listnodes("A", "E4", Pathfinding.listOfNodes, Pathfinding.Path);
 
             r3.AddTask(new RobotMove(Pathfinding.Start));
-            r3.AddTask(new RobotMove(Pathfinding.PathRobot3));
+            r3.AddTask(new RobotMove(Pathfinding.Path));
         }
 
         private Truck CreateTruck(double x, double y, double z)

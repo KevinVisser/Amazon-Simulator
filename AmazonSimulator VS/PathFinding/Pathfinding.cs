@@ -10,7 +10,7 @@ namespace PathFinding
     public class Pathfinding
     {
         public static List<Node> listOfNodes = new List<Node>();
-        public static List<Node> PathRobot1 = new List<Node>();
+        public static List<Node> Path = new List<Node>();
         public static List<Node> PathRobot2 = new List<Node>();
         public static List<Node> PathRobot3 = new List<Node>();
         public static List<Node> Start = new List<Node>();

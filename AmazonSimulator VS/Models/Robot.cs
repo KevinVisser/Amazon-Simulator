@@ -11,6 +11,8 @@ namespace Models
     {
         private List<IRobotTask> tasks = new List<IRobotTask>();
         private List<Node> currentPath = null;
+        public List<Node> path = new List<Node>();
+        private string currentNode;
         private PalletRack rack = null;
 
         public Robot(double x, double y, double z, double rotationX, double rotationY, double rotationZ)
@@ -52,12 +54,18 @@ namespace Models
                 this._x = Math.Round(this._x, 1);
                 this._z = Math.Round(this._z, 1);
                 //bewegen
-                if (currentPath[0].HasRack() && rack == null)
+                if (currentPath[0].HasRack() && rack == null && currentPath.Count == 1)
                 {
                     if(this._x == currentPath[0]._x && this._z == currentPath[0]._z)
                     {
                         this.rack = currentPath[0].GetRack();
                         this.rack.Move(this.x, this.y + 1.4, this.z);
+
+                        this.currentNode = currentPath[0]._nodeName;
+                        currentPath.Clear();
+
+                        this.currentPath = Pathfinding.Listnodes(currentNode, "J", Pathfinding.listOfNodes, this.path);
+                        //Hierna kijken hoe je currentnode -1 doet en dan ipv C4 stellage naar C3 etc.
                     }
                     else
                     {
