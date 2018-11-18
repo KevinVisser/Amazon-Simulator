@@ -26,7 +26,7 @@ namespace Tasks
 
         public bool TaskComplete(Robot r)
         {
-            return r.x == path.Last()._x && r.z == path.Last()._z;
+            return r.x == path.Last().GetX() && r.z == path.Last().GetZ();
         }
     }
 }

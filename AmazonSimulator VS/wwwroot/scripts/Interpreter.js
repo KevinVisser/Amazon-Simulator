@@ -3,6 +3,7 @@ var object;
 var rack;
 var group;
 var scene;
+var truck, bay;
 
 var worldObjects = {};
 
@@ -38,7 +39,6 @@ function InterpretServer(scene)
                 }
                 else if(command.parameters.type == "palletRack")
                 {
-                    console.log(command)
                     var rackGeo = new THREE.BoxGeometry(1.2, 2, 1.2);
                     var rackMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
                     var rack = new THREE.Mesh(rackGeo, rackMaterial);
@@ -48,8 +48,33 @@ function InterpretServer(scene)
                     scene.add(group);
                     worldObjects[command.parameters.guid] = group;
                 }
-            }
+                else if(command.parameters.type == "truck")
+                {
+                    loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => {
+                        mesh.scale.set(0.01, 0.01, 0.01);
+                        mesh.position.set(30, 0.23, 15);
+                        mesh.rotation.y = Math.PI / 2;
+                        truck = mesh;
+                        console.log(truck);
+                        scene.add(truck);
+                        worldObjects[command.parameters.guid] = truck;
+                    });
+                }
+                else if(command.parameters.type == "loadingBay")
+                {
+                    loadOBJModel("models/Warehouse/", "warehouse.obj", "models/Warehouse/", "warehouse.mtl", (mesh) => {
+                        mesh.scale.set(1.5, 1.5, 1);
+                        mesh.position.set(30, 2.8, 15);
+                        mesh.rotation.y = Math.PI / 2;
 
+                        bay = mesh;
+
+                        scene.add(bay);
+                        worldObjects[command.parameters.guid] = bay;
+                    });
+                }
+            }
+            console.log(command.parameters);
             var object = worldObjects[command.parameters.guid];
             object.position.x = command.parameters.x;
             object.position.y = command.parameters.y;

@@ -49,12 +49,13 @@ namespace PathFinding
 
         public static List<Node> Listnodes(string start, string end, List<Node> nodes, List<Node> path)
         {
+            path.Clear();
             Node CurrentNode;
             string currentNode;
             //RECURSIEFANBOYs
             for (int i = 0; i < nodes.Count(); i++)
             {
-                currentNode = nodes[i]._nodeName;
+                currentNode = nodes[i].GetName();
                 CurrentNode = nodes[i];
 
                 //Termination condition
@@ -70,23 +71,23 @@ namespace PathFinding
                 }
 
                 //als de currentNode een neighbor heeft met de endnode word de current node toegevoegd aan de list en called hij recursief de functie weer aan met die neighbor als eindpunt.
-                if (nodes[i].Neighbors.Contains(end))
+                if (nodes[i].GetNeighbors().Contains(end))
                 {
                     path.Add(CurrentNode);
-                    Listnodes(start, nodes[i]._nodeName, listOfNodes, path);
+                    Listnodes(start, nodes[i].GetName(), listOfNodes, path);
                     break;
                 }
             }
 
             foreach (Node node in nodes)
             {
-                if (node._nodeName == end)
+                if (node.GetName() == end)
                 {
                     path.Add(node);
                 }
             }
             //Sorteer de lijst op alfabetische volgorde en haal alle duplicates eruit
-            path = path.OrderBy(x => x._nodeName).Distinct().ToList();
+            path = path.OrderBy(x => x.GetName()).Distinct().ToList();
             return path;
         }
 
@@ -94,7 +95,7 @@ namespace PathFinding
         {
             foreach (Node node in list)
             {
-                Console.WriteLine(node._nodeName);
+                Console.WriteLine(node.GetName());
             }
             Console.WriteLine();
         }

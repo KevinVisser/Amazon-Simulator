@@ -15,6 +15,8 @@ namespace Models {
             //vul de lijst met alle nodes
             Pathfinding.FillList();
 
+            LoadingBay bay = CreateLoadingBay(20, 20, 20);
+
             //Maak objecten aan
             Pathfinding.listOfNodes[5].SetRack(CreatePalletRack(15, 1.4, 10));
             Pathfinding.listOfNodes[6].SetRack(CreatePalletRack(15, 1.4, 11.5));
@@ -32,10 +34,14 @@ namespace Models {
             Pathfinding.listOfNodes[16].SetRack(CreatePalletRack(5, 1.4, 14.5));
 
 
+            Truck t1 = CreateTruck(33, 0.23, 15);
+            Truck t2 = CreateTruck(33, 0.23, 10);
+            Truck t3 = CreateTruck(33, 0.23, 5);
 
-            Robot r1 = CreateRobot(28, 0.15, 13.5);
-            Robot r2 = CreateRobot(28, 0.15, 13.5);
-            Robot r3 = CreateRobot(28, 0.15, 13.5);
+            Robot r1 = CreateRobot(28, 0.15, 13.5, 'C', t1);
+            Robot r2 = CreateRobot(28, 0.15, 13.5, 'D', t2);
+            Robot r3 = CreateRobot(28, 0.15, 13.5, 'E', t3);
+
 
 
             //Pad voor de robot
@@ -62,7 +68,7 @@ namespace Models {
 
         private Truck CreateTruck(double x, double y, double z)
         {
-            Truck truck = new Truck(x, y, z, 0, 0, 0);
+            Truck truck = new Truck(x, y, z, 0, Math.PI / 2, 0);
             worldObjects.Add(truck);
             return truck;
         }
@@ -81,8 +87,8 @@ namespace Models {
             return rack;
         }
 
-        private Robot CreateRobot(double x, double y, double z) {
-            Robot r = new Robot(x, y, z, 0, 0, 0);
+        private Robot CreateRobot(double x, double y, double z, char name, Truck t) {
+            Robot r = new Robot(x, y, z, 0, 0, 0, name, t);
             worldObjects.Add(r);
             return r;
         }

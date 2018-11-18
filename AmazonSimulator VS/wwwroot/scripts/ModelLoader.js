@@ -1,3 +1,5 @@
+var truck;
+
 /**
 * @param {string} modelPath
 * @param {string} modelName
@@ -27,8 +29,8 @@ function LoadModels(scene)
 {
     LoadPlane(scene);
     LoadSkybox(scene);
-    LoadTruck(scene);
-    LoadWarehouse(scene);
+    //LoadTruck(scene);
+    //LoadWarehouse(scene);
 }
 
 function LoadPlane(scene)
@@ -64,8 +66,10 @@ function LoadTruck(scene)
         mesh.scale.set(0.01, 0.01, 0.01);
         mesh.position.set(33, 0.23, 15);
         truck = mesh;
-        scene.add(mesh);
+        console.log(truck);
     });
+
+    return truck;
 }
 
 function LoadWarehouse(scene)
