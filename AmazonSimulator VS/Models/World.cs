@@ -86,7 +86,7 @@ namespace Models {
 
         private Truck CreateTruck(double x, double y, double z, string name)
         {
-            Truck truck = new Truck(x, y, z, 0, Math.PI/2*2, 0, name);
+            Truck truck = new Truck(x, y, z, 0, Math.PI, 0, name);
             worldObjects.Add(truck);
             return truck;
         }

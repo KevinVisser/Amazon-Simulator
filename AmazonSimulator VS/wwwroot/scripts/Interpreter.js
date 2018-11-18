@@ -3,7 +3,7 @@ var object;
 var rack;
 var group;
 var scene;
-var truck, bay;
+var truck, bay, truckGroup;
 
 var worldObjects = {};
 
@@ -21,12 +21,12 @@ function InterpretServer(scene)
                 {
                     var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
                     var cubeMaterials = [
-                        new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
-                        new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //RIGHT
-                        new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_top.png"), side: THREE.DoubleSide }), //TOP
-                        new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BOTTOM
-                        new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //FRONT
-                        new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //BACK
+                        new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
+                        new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //RIGHT
+                        new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_top.png"), side: THREE.DoubleSide }), //TOP
+                        new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_bottom.png"), side: THREE.DoubleSide }), //BOTTOM
+                        new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //FRONT
+                        new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_front.png"), side: THREE.DoubleSide }), //BACK
                     ];
                     var robot = new THREE.Mesh(geometry, cubeMaterials);
                     robot.position.y = 0.15;
@@ -40,7 +40,7 @@ function InterpretServer(scene)
                 else if(command.parameters.type == "palletRack")
                 {
                     var rackGeo = new THREE.BoxGeometry(1.2, 2, 1.2);
-                    var rackMaterial = new THREE.MeshBasicMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
+                    var rackMaterial = new THREE.MeshPhongMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
                     var rack = new THREE.Mesh(rackGeo, rackMaterial);
                     group = new THREE.Group();
                     group.add(rack);
@@ -51,6 +51,7 @@ function InterpretServer(scene)
                 else if(command.parameters.type == "truck")
                 {
                     loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => {
+                        console.log("hallo")
                         mesh.scale.set(0.01, 0.01, 0.01);
                         truck = mesh;
                         mesh.position.set(1000, command.parameters.y, command.parameters.z);
