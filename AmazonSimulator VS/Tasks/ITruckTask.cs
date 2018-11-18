@@ -6,7 +6,7 @@ using Models;
 
 namespace Tasks
 {
-    interface ITruckTask
+    public interface ITruckTask
     {
         void StartTask(Truck t);
 

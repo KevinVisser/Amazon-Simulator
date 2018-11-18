@@ -43,9 +43,8 @@ namespace Models
                 if (tasks.First().TaskComplete(this))
                 {
                     tasks.RemoveAt(0);
-                    if(currentPath != null && isHome(this))
+                    if(currentPath != null && isHome(this) && this._truck.isHome(this._truck))
                     {
-                        //Hier de code om het rack aan de truck te geven
                         this.GiveRack();
                         if(i < 4)
                         {
@@ -66,6 +65,24 @@ namespace Models
                     }
                 }
             }
+
+            if(tasks == null && currentPath != null && isHome(this) && this._truck.isHome(this._truck) && this.rack != null)
+            {
+                tasks = new List<IRobotTask>();
+                this.GiveRack();
+                if (i < 4)
+                {
+                    this.currentPath.Clear();
+                    this.currentPath = Pathfinding.Listnodes("A", NextRack(this, i), Pathfinding.listOfNodes, this.path);
+                    this.AddTask(new RobotMove(this.currentPath));
+                    i++;
+                }
+                else
+                {
+                    tasks = null;
+                }
+            }
+
             if (this.currentPath != null && this.currentPath.Count != 0)
             {
                 this._x = Math.Round(this._x, 1);
@@ -131,7 +148,7 @@ namespace Models
 
         private static bool isHome(Robot r)
         {
-            if(r.x == 28 && r.z == 18)
+            if(r.x == 28 && r.z == 17)
             {
                 return true;
             }

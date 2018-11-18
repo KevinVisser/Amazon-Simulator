@@ -52,12 +52,11 @@ function InterpretServer(scene)
                 {
                     loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => {
                         mesh.scale.set(0.01, 0.01, 0.01);
-                        mesh.position.set(30, 0.23, 15);
-                        mesh.rotation.y = Math.PI / 2;
                         truck = mesh;
-                        console.log(truck);
-                        scene.add(truck);
-                        worldObjects[command.parameters.guid] = truck;
+                        mesh.position.set(1000, command.parameters.y, command.parameters.z);
+                        
+                        scene.add(mesh);
+                        worldObjects[command.parameters.guid] = mesh;
                     });
                 }
                 else if(command.parameters.type == "loadingBay")
@@ -74,8 +73,7 @@ function InterpretServer(scene)
                     });
                 }
             }
-            console.log(command.parameters);
-            var object = worldObjects[command.parameters.guid];
+            object = worldObjects[command.parameters.guid];
             object.position.x = command.parameters.x;
             object.position.y = command.parameters.y;
             object.position.z = command.parameters.z;

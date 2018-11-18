@@ -10,14 +10,21 @@ namespace PathFinding
     public class Pathfinding
     {
         public static List<Node> listOfNodes = new List<Node>();
-        public static List<Node> Path = new List<Node>();
-        public static List<Node> PathRobot2 = new List<Node>();
-        public static List<Node> PathRobot3 = new List<Node>();
-        public static List<Node> Start = new List<Node>();
+
+        public static List<Node> PathRobot = new List<Node>();
+        public static List<Node> StartRobot = new List<Node>();
+
+        public static List<Node> PathTruck = new List<Node>();
+        public static List<Node> StartTruck1 = new List<Node>();
+        public static List<Node> StartTruck2 = new List<Node>();
+        public static List<Node> StartTruck3 = new List<Node>();
 
         public static void FillList()
         {
-            Start.Add(new Node("A", 28, 0, 13.5, "B"));
+            StartRobot.Add(new Node("A", 28, 0, 13.5, "B"));
+            StartTruck1.Add(new Node("X1", 33, 0.23, 60, "Y1"));
+            StartTruck2.Add(new Node("X2", 35, 0.23, 60, "Y2"));
+            StartTruck3.Add(new Node("X3", 37, 0.23, 60, "Y3"));
 
             listOfNodes.Add(new Node("A", 28, 0, 13.5, "B"));
             listOfNodes.Add(new Node("B", 28, 0, 8, "C"));
@@ -44,7 +51,19 @@ namespace PathFinding
             listOfNodes.Add(new Node("G", 10, 0, 22.5, "D4", "H"));
             listOfNodes.Add(new Node("H", 15, 0, 22.5, "C4", "I"));
             listOfNodes.Add(new Node("I", 28, 0, 22.5, "J"));
-            listOfNodes.Add(new Node("J", 28, 0, 18, "A"));
+            listOfNodes.Add(new Node("J", 28, 0, 17, "A"));
+
+            listOfNodes.Add(new Node("X1", 33, 0.23, 60, "Y1"));
+            listOfNodes.Add(new Node("Y1", 33, 0.23, 15, "X1", "Z1"));
+            listOfNodes.Add(new Node("Z1", 33, 0.23, -30, "Y1"));
+
+            listOfNodes.Add(new Node("X2", 35, 0.23, 60, "Y2"));
+            listOfNodes.Add(new Node("Y2", 35, 0.23, 15, "X2", "Z2"));
+            listOfNodes.Add(new Node("Z2", 35, 0.23, -30, "Y2"));
+
+            listOfNodes.Add(new Node("X3", 37, 0.23, 60, "Y3"));
+            listOfNodes.Add(new Node("Y3", 37, 0.23, 15, "X3", "Z3"));
+            listOfNodes.Add(new Node("Z3", 37, 0.23, -30, "Y3"));
         }
 
         public static List<Node> Listnodes(string start, string end, List<Node> nodes, List<Node> path)
