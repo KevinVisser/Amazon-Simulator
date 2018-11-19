@@ -7,18 +7,45 @@ using MoreLinq;
 
 namespace PathFinding
 {
+    /// <summary>
+    /// Pathfinding class
+    /// </summary>
     public class Pathfinding
     {
+        /// <summary>
+        /// Lijst met alle nodes
+        /// </summary>
         public static List<Node> listOfNodes = new List<Node>();
 
+        /// <summary>
+        /// Pad voor de robot
+        /// </summary>
         public static List<Node> PathRobot = new List<Node>();
+        /// <summary>
+        /// Startnode voor de robot
+        /// </summary>
         public static List<Node> StartRobot = new List<Node>();
 
+        /// <summary>
+        /// Het pad voor de truck
+        /// </summary>
         public static List<Node> PathTruck = new List<Node>();
+        /// <summary>
+        /// Startnode voor de truck 1
+        /// </summary>
         public static List<Node> StartTruck1 = new List<Node>();
+        /// <summary>
+        /// Startnode voor de truck 2
+        /// </summary>
         public static List<Node> StartTruck2 = new List<Node>();
+        /// <summary>
+        /// Startnode voor de truck 3
+        /// </summary>
         public static List<Node> StartTruck3 = new List<Node>();
 
+        /// <summary>
+        /// vul de lijsten met alle nodes
+        /// </summary>
         public static void FillList()
         {
             StartRobot.Add(new Node("A", 28, 0, 13.5, "B"));
@@ -65,7 +92,14 @@ namespace PathFinding
             listOfNodes.Add(new Node("Y3", 37, 0.23, 15, "X3", "Z3"));
             listOfNodes.Add(new Node("Z3", 37, 0.23, -30, "Y3"));
         }
-
+        /// <summary>
+        /// geeft de lijst met nodes terug die de robot/truck moet bewandelen
+        /// </summary>
+        /// <param name="start">startnode van object</param>
+        /// <param name="end">eindnode van object</param>
+        /// <param name="nodes">de lijst moet alle nodes</param>
+        /// <param name="path">in welke lijst je het wil stoppen</param>
+        /// <returns></returns>
         public static List<Node> Listnodes(string start, string end, List<Node> nodes, List<Node> path)
         {
             path.Clear();
@@ -108,15 +142,6 @@ namespace PathFinding
             //Sorteer de lijst op alfabetische volgorde en haal alle duplicates eruit
             path = path.OrderBy(x => x.GetName()).Distinct().ToList();
             return path;
-        }
-
-        public static void CheckForDupes(List<Node> list)
-        {
-            foreach (Node node in list)
-            {
-                Console.WriteLine(node.GetName());
-            }
-            Console.WriteLine();
         }
     }
 }

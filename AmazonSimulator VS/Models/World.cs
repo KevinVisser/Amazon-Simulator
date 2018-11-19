@@ -6,11 +6,16 @@ using PathFinding;
 using Tasks;
 
 namespace Models {
+    /// <summary>
+    /// World class
+    /// </summary>
     public class World : IObservable<Command>, IUpdatable
     {
         private List<Object> worldObjects = new List<Object>();
         private List<IObserver<Command>> observers = new List<IObserver<Command>>();
-
+        /// <summary>
+        /// constructor voor de world
+        /// </summary>
         public World() {
             //vul de lijst met alle nodes
             Pathfinding.FillList();
@@ -133,6 +138,11 @@ namespace Models {
             }
         }
 
+        /// <summary>
+        /// Update de objecten
+        /// </summary>
+        /// <param name="tick">hoe vaak</param>
+        /// <returns></returns>
         public bool Update(int tick)
         {
             for(int i = 0; i < worldObjects.Count; i++) {

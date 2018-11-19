@@ -1,12 +1,12 @@
-function parseCommand(input = "") {
-    return JSON.parse(input);
-}
-
-window.onload = function () {
+window.onload = function () 
+{
     var camera, scene, renderer;
     var cameraControls;
 
-    function init() {
+    /**
+     */
+    function init()
+    {
         camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
         cameraControls = new THREE.OrbitControls(camera);
         camera.position.set(60, 25, 15);
@@ -23,14 +23,20 @@ window.onload = function () {
         LoadModels(scene);
         InterpretServer(scene);
     }
-
-    function onWindowResize() {
+    
+    /**
+     */
+    function onWindowResize()
+    {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
     
-    function animate() {
+    /**
+     */
+    function animate()
+    {
         requestAnimationFrame(animate);
         cameraControls.update();
         renderer.render(scene, camera);

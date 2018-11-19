@@ -1,44 +1,39 @@
 /**
-* @param {string} modelPath
-* @param {string} modelName
-* @param {string} texturePath
-* @param {string} textureName
-* @param {function(THREE.Mesh): void} onload
-* @return {void}
-*/
+ * Het laden van een .obj en .mtl bestand
+ * @param  {} modelPath - Het pad waar het model staat
+ * @param  {} modelName - Hoe het .obj bestand heet
+ * @param  {} texturePath - Het pad waar het model staat
+ * @param  {} textureName - Hoe het .mtl bestand heet
+ * @param  {} onload - Wanneer het bestand laadt
+ */
+function loadOBJModel(modelPath, modelName, texturePath, textureName, onload)
+{
+    new THREE.MTLLoader()
+        .setPath(texturePath)
+        .load(textureName, function(materials){
 
-function loadOBJModel(modelPath, modelName, texturePath, textureName, onload){
-new THREE.MTLLoader()
-    .setPath(texturePath)
-    .load(textureName, function(materials){
+            materials.preload();
 
-        materials.preload();
-
-        new THREE.OBJLoader()
-            .setPath(modelPath)
-            .setMaterials(materials)
-            .load(modelName, function(object){
-                onload(object);
-            }, function () {} , function (e){console.log("Error loading model"); console.log(e); });
-    });
+            new THREE.OBJLoader()
+                .setPath(modelPath)
+                .setMaterials(materials)
+                .load(modelName, function(object){
+                    onload(object);
+                }, function () {} , function (e){console.log("Error loading model"); console.log(e); });
+        });
 }
 
-var lights, road;
-
+/**
+ * Het laden van alle modellen en geometry
+ * @param  {} scene - De THREE.js scene
+ */
 function LoadModels(scene)
 {
     LoadSun(scene);
     LoadRoad(scene);
     LoadLights(scene);
-    LoadPlane(scene);
     LoadSkybox(scene);
-    LoadLeftWall(scene);
-    LoadRightWall(scene);
-    LoadBackWall(scene);
-    LoadFrontLeftWall(scene);
-    LoadFrontRightWall(scene);
-    LoadFrontMiddleWall(scene);
-    LoadRoof(scene);
+    LoadBuilding(scene);
     LoadLogo(scene);
 }
 //#region Walls
@@ -82,8 +77,7 @@ function LoadRoad(scene)
         mesh.scale.set(0.51, 0.01, 0.024);
         mesh.position.set(35, 0, 15);
         mesh.rotation.y = Math.PI / 2;
-        road = mesh;
-        scene.add(road)
+        scene.add(mesh)
     });
 
     loadOBJModel("models/Road/", "1229 Road.obj", "models/Road/", "1229 Road.mtl", (mesh) => {
@@ -94,78 +88,60 @@ function LoadRoad(scene)
     });
 }
 
-function LoadLeftWall(scene)
+/**
+ * @param  {} scene
+ */
+function LoadBuilding(scene)
 {
-    var wallGeo = new THREE.BoxGeometry(30, 10, 2);
+    //Geometry
+    var floorGeo = new THREE.PlaneGeometry(30, 30);
+    var sideWallGeo = new THREE.PlaneGeometry(30, 10, 2);
+    var frontRightGeo = new THREE.PlaneGeometry(13, 10, 2);
+    var frontLeftGeo = new THREE.PlaneGeometry(11, 10, 2);
+    var frontMiddleGeo = new THREE.PlaneGeometry(6.5, 6, 2);
+
+    //Materials
+    var floorMat = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/floor.png"), side: THREE.DoubleSide });
     var wallMat = new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load("textures/wall.png"), side: THREE.DoubleSide});
-    var leftWall = new THREE.Mesh(wallGeo, wallMat);
-    leftWall.position.set(15, 5, -1);
+
+    //Meshes
+    var leftWall = new THREE.Mesh(sideWallGeo, wallMat);
+    var rightWall = new THREE.Mesh(sideWallGeo, wallMat);
+    var backWall = new THREE.Mesh(sideWallGeo, wallMat);
+    var frontRightWall = new THREE.Mesh(frontRightGeo, wallMat);
+    var frontLeftWall = new THREE.Mesh(frontLeftGeo, wallMat);
+    var frontMiddleWall = new THREE.Mesh(frontMiddleGeo, wallMat);
+    var floor = new THREE.Mesh(floorGeo, floorMat);
+    var ceiling = new THREE.Mesh(floorGeo, floorMat);
+
+    
+    //Set positions
+    leftWall.position.set(15, 5, 0);
+    rightWall.position.set(15, 5, 30);
+    backWall.position.set(0, 5, 15);
+    frontRightWall.position.set(30, 5, 6.25);
+    frontLeftWall.position.set(30, 5, 24.5);
+    frontMiddleWall.position.set(30, 7, 15.75);
+    floor.position.set(15, 0, 15);
+    ceiling.position.set(15, 10, 15);
+    
+    //Set rotations
+    backWall.rotation.y = Math.PI / 2;
+    frontRightWall.rotation.y = Math.PI / 2;
+    frontLeftWall.rotation.y = Math.PI / 2;
+    frontMiddleWall.rotation.y = Math.PI / 2;
+    floor.rotation.x = Math.PI / 2.0;
+    ceiling.rotation.x = Math.PI / 2.0;
+    
+    //Add to scene
     scene.add(leftWall);
-}
-
-function LoadRightWall(scene)
-{
-    var wallGeo = new THREE.BoxGeometry(30, 10, 2);
-    var wallMat = new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load("textures/wall.png"), side: THREE.DoubleSide});
-    var rightWall = new THREE.Mesh(wallGeo, wallMat);
-
-    rightWall.position.set(15, 5, 31);
     scene.add(rightWall);
-}
-
-function LoadBackWall(scene)
-{
-    var wallGeo = new THREE.BoxGeometry(34, 10, 2);
-    var wallMat = new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load("textures/wall.png"), side: THREE.DoubleSide});
-    var backWall = new THREE.Mesh(wallGeo, wallMat);
-    backWall.position.set(-1, 5, 15);
-    backWall.rotation.y = Math.PI / 2;
-
     scene.add(backWall);
-}
-
-function LoadFrontLeftWall(scene)
-{
-    var wallGeo = new THREE.BoxGeometry(13, 10, 2);
-    var wallMat = new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load("textures/wall.png"), side: THREE.DoubleSide});
-    var backWall = new THREE.Mesh(wallGeo, wallMat);
-    backWall.position.set(31, 5, 25.5);
-    backWall.rotation.y = Math.PI / 2;
-
-    scene.add(backWall);
-
-}
-
-function LoadFrontRightWall(scene)
-{
-    var wallGeo = new THREE.BoxGeometry(14.5, 10, 2);
-    var wallMat = new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load("textures/wall.png"), side: THREE.DoubleSide});
-    var backWall = new THREE.Mesh(wallGeo, wallMat);
-    backWall.position.set(31, 5, 5.25);
-    backWall.rotation.y = Math.PI / 2;
-
-    scene.add(backWall);
-}
-
-function LoadFrontMiddleWall(scene)
-{
-    var wallGeo = new THREE.BoxGeometry(6.5, 6, 2);
-    var wallMat = new THREE.MeshPhongMaterial({map: new THREE.TextureLoader().load("textures/wall.png"), side: THREE.DoubleSide});
-    var backWall = new THREE.Mesh(wallGeo, wallMat);
-    backWall.position.set(31, 7, 15.75);
-    backWall.rotation.y = Math.PI / 2;
-
-    scene.add(backWall);
-}
-
-function LoadRoof(scene)
-{
-    var geometry = new THREE.PlaneGeometry(30, 30);
-    var material = new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/wall.png"), side: THREE.DoubleSide });
-    var plane = new THREE.Mesh(geometry, material);
-    plane.rotation.x = Math.PI / 2.0;
-    plane.position.set(15, 10, 15);
-    scene.add(plane);
+    scene.add(frontRightWall);
+    scene.add(frontLeftWall);
+    scene.add(frontMiddleWall);
+    scene.add(floor);
+    scene.add(ceiling);
 }
 //#endregion
 
@@ -176,7 +152,7 @@ function LoadLogo(scene)
     var material = new THREE.MeshBasicMaterial({ map: new THREE.TextureLoader().load("textures/Logo.png"), side: THREE.DoubleSide });
     var plane = new THREE.Mesh(geometry, material);
     plane.rotation.y = Math.PI / 2.0;
-    plane.position.set(32.1, 7, 15);
+    plane.position.set(30.1, 7, 15);
     scene.add(plane);
 }
 //#endregion
@@ -184,7 +160,7 @@ function LoadLogo(scene)
 //#region Lights
 function LoadLights(scene)
 {
-    lights = new THREE.Group();
+    var lights = new THREE.Group();
 
     //Het laden van het model en de materials(textures)
     var mtlLoader = new THREE.MTLLoader();

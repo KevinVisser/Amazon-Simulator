@@ -7,6 +7,9 @@ using Tasks;
 
 namespace Models
 {
+    /// <summary>
+    /// robot class overgeerfd van model3d class
+    /// </summary>
     public class Robot : Model3D
     {
         private List<IRobotTask> tasks = new List<IRobotTask>();
@@ -19,6 +22,17 @@ namespace Models
         private string currentNode;
         int i = 1;
 
+        /// <summary>
+        /// constructor van een robot
+        /// </summary>
+        /// <param name="x">xPos</param>
+        /// <param name="y">yPos</param>
+        /// <param name="z">zPos</param>
+        /// <param name="rotationX">xRot</param>
+        /// <param name="rotationY">yRot</param>
+        /// <param name="rotationZ">zRot</param>
+        /// <param name="name">naam van het object</param>
+        /// <param name="truck">welke truck is gekoppeld aan deze robot</param>
         public Robot(double x, double y, double z, double rotationX, double rotationY, double rotationZ, char name, Truck truck)
         {
             type = "robot";
@@ -35,7 +49,11 @@ namespace Models
             _name = name;
             _truck = truck;
         }
-
+        /// <summary>
+        /// Het updaten van de robot (nieuwe tasks, overgeven van een pallet aan de verbonden truck als die wacht bij het laaddok, positie etc.)
+        /// </summary>
+        /// <param name="tick">hoe vaak</param>
+        /// <returns></returns>
         public override bool Update(int tick)
         {
             if (tasks != null)
@@ -43,7 +61,7 @@ namespace Models
                 if (tasks.First().TaskComplete(this))
                 {
                     tasks.RemoveAt(0);
-                    if(currentPath != null && isHome(this) && this._truck.isHome(this._truck))
+                    if(currentPath != null && this.isHome() && this._truck.isHome(this._truck))
                     {
                         this.GiveRack();
                         if(i < 4)
@@ -66,7 +84,7 @@ namespace Models
                 }
             }
 
-            if(tasks == null && currentPath != null && isHome(this) && this._truck.isHome(this._truck) && this.rack != null)
+            if(tasks == null && currentPath != null && this.isHome() && this._truck.isHome(this._truck) && this.rack != null)
             {
                 tasks = new List<IRobotTask>();
                 this.GiveRack();
@@ -136,19 +154,31 @@ namespace Models
             return base.Update(tick);
         }
         
+        /// <summary>
+        /// voeg een taak toe aan dit object
+        /// </summary>
+        /// <param name="task">welke taak je toevoegd</param>
         public void AddTask(IRobotTask task)
         {
             tasks.Add(task);
         }
 
+        /// <summary>
+        /// zet het pad wat de robot moet volgen
+        /// </summary>
+        /// <param name="path">een lijst met nodes waar hij over heen moet bewegen</param>
         public void MoveOverPath(List<Node> path)
         {
             this.currentPath = path;
         }
 
-        private static bool isHome(Robot r)
+        /// <summary>
+        /// Kijken of de robot bij het laaddok is
+        /// </summary>
+        /// <returns></returns>
+        private bool isHome()
         {
-            if(r.x == 28 && r.z == 17)
+            if(this.x == 28 && this.z == 17)
             {
                 return true;
             }

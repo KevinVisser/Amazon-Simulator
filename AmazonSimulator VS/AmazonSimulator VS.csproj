@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>C:\Users\Kevin\Desktop\School\Jaar 2\Periode 1\OOP\Amazon Opdracht\AmazonSimulator VS\AmazonSimulator VS.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

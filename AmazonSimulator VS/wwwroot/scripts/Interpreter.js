@@ -7,6 +7,19 @@ var truck, bay, truckGroup;
 
 var worldObjects = {};
 
+/**
+ * Parse het command dat je krijgt van de server
+ * @param  {} input="" - command is standaard een lege string.
+ */
+function parseCommand(input = "") 
+{
+    return JSON.parse(input);
+}
+
+/**
+ * Ontvang de command van de server en kijk wat je precies moet doen. (objecten aanmaken, posities updaten)
+ * @param  {} scene -  De THREE.js scene om zo de objecten toe te voegen.
+ */
 function InterpretServer(scene)
 {
     exampleSocket = new WebSocket("ws://" + window.location.hostname + ":" + window.location.port + "/connect_client");
@@ -20,7 +33,8 @@ function InterpretServer(scene)
                 if (command.parameters.type == "robot")
                 {
                     var geometry = new THREE.BoxGeometry(0.9, 0.3, 0.9);
-                    var cubeMaterials = [
+                    var cubeMaterials = 
+                    [
                         new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //LEFT
                         new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_side.png"), side: THREE.DoubleSide }), //RIGHT
                         new THREE.MeshPhongMaterial({ map: new THREE.TextureLoader().load("textures/robot_top.png"), side: THREE.DoubleSide }), //TOP
@@ -50,8 +64,8 @@ function InterpretServer(scene)
                 }
                 else if(command.parameters.type == "truck")
                 {
-                    loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => {
-                        console.log("hallo")
+                    loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => 
+                    {
                         mesh.scale.set(0.01, 0.01, 0.01);
                         truck = mesh;
                         mesh.position.set(1000, command.parameters.y, command.parameters.z);
@@ -62,7 +76,8 @@ function InterpretServer(scene)
                 }
                 else if(command.parameters.type == "loadingBay")
                 {
-                    loadOBJModel("models/Warehouse/", "warehouse.obj", "models/Warehouse/", "warehouse.mtl", (mesh) => {
+                    loadOBJModel("models/Warehouse/", "warehouse.obj", "models/Warehouse/", "warehouse.mtl", (mesh) => 
+                    {
                         mesh.scale.set(1.5, 1.5, 1);
                         mesh.position.set(30, 2.8, 15);
                         mesh.rotation.y = Math.PI / 2;
