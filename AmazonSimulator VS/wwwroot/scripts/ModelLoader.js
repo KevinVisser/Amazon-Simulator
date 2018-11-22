@@ -173,7 +173,6 @@ function LoadLights(scene)
         objLoader.setMaterials(materials)
         objLoader.setPath("models/Light/")
         objLoader.load("JCLobbyPendant.obj", function (geometry) {
-            //hier kunnen we later wel aanpassen hoeveel objecten er zijn(moeilijksheidgraad)
             for (var i = 0; i < 5; i++)
             {
                 for(var j = 0; j < 5; j++)
@@ -218,7 +217,6 @@ function LoadLights(scene)
                 var pointLight = new THREE.PointLight(0xFFFFFF, 1, 50);
                 pointLight.position.set(37.5, 2, 20 * j - 30);
                 pointLight.rotation.y = Math.PI;
-                pointLight.target = road;
 
                 //add to scene
                 lights.add(light);

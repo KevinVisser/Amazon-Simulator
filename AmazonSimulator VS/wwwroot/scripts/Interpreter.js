@@ -64,10 +64,18 @@ function InterpretServer(scene)
                 }
                 else if(command.parameters.type == "truck")
                 {
+                    // var truckGeo = new THREE.BoxGeometry(1.2, 2, 1.2);
+                    // var truckMat = new THREE.MeshPhongMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
+                    // var truck = new THREE.Mesh(truckGeo, truckMat);
+                    // group = new THREE.Group();
+                    // group.add(truck);
+
+                    // scene.add(group);
+                    // worldObjects[command.parameters.guid] = group;
+
                     loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => 
                     {
                         mesh.scale.set(0.01, 0.01, 0.01);
-                        truck = mesh;
                         mesh.position.set(1000, command.parameters.y, command.parameters.z);
                         
                         scene.add(mesh);
