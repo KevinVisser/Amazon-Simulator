@@ -65,3 +65,4 @@ C:\Users\Kevin\Desktop\School\Jaar 2\Periode 1\OOP\Amazon Opdracht\AmazonSimulat
 C:\Users\Kevin\Desktop\School\Jaar 2\Periode 1\OOP\Amazon Opdracht\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.pdb
 C:\Users\Kevin\Desktop\School\Jaar 2\Periode 1\OOP\Amazon Opdracht\AmazonSimulator VS\bin\Debug\netcoreapp2.0\AmazonSimulator VS.xml
 C:\Users\Kevin\Desktop\School\Jaar 2\Periode 1\OOP\Amazon Opdracht\AmazonSimulator VS\obj\Debug\netcoreapp2.0\AmazonSimulator VS.csprojAssemblyReference.cache
+C:\Users\Kevin\Desktop\School\Periode 1\Object Georiënteerd Programmeren\Opdracht Amazon\AmazonSimulator VS\bin\Debug\netcoreapp2.0\AmazonSimulator VS.xml

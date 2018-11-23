@@ -3,7 +3,6 @@ var object;
 var rack;
 var group;
 var scene;
-var truck, bay, truckGroup;
 
 var worldObjects = {};
 
@@ -64,23 +63,15 @@ function InterpretServer(scene)
                 }
                 else if(command.parameters.type == "truck")
                 {
-                    // var truckGeo = new THREE.BoxGeometry(1.2, 2, 1.2);
-                    // var truckMat = new THREE.MeshPhongMaterial({ color: 0xFF0000, side: THREE.DoubleSide });
-                    // var truck = new THREE.Mesh(truckGeo, truckMat);
-                    // group = new THREE.Group();
-                    // group.add(truck);
-
-                    // scene.add(group);
-                    // worldObjects[command.parameters.guid] = group;
+                    var truck = new THREE.Group();
 
                     loadOBJModel("models/Truck/", "Truck.obj", "models/Truck/", "Truck.mtl", (mesh) => 
                     {
-                        mesh.scale.set(0.01, 0.01, 0.01);
-                        mesh.position.set(1000, command.parameters.y, command.parameters.z);
-                        
-                        scene.add(mesh);
-                        worldObjects[command.parameters.guid] = mesh;
+                        mesh.scale.set(0.01, 0.01, 0.01);                        
+                        truck.add(mesh);
                     });
+                    scene.add(truck);
+                    worldObjects[command.parameters.guid] = truck;
                 }
                 else if(command.parameters.type == "loadingBay")
                 {
@@ -90,10 +81,8 @@ function InterpretServer(scene)
                         mesh.position.set(30, 2.8, 15);
                         mesh.rotation.y = Math.PI / 2;
 
-                        bay = mesh;
-
-                        scene.add(bay);
-                        worldObjects[command.parameters.guid] = bay;
+                        scene.add(mesh);
+                        worldObjects[command.parameters.guid] = mesh;
                     });
                 }
             }
